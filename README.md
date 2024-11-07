@@ -3,6 +3,8 @@
 
 This script post-processes open-field videos labeled with DeepLabCut. It calculates metrics like distance traveled, time spent in specific zones, and generates tracklet visualizations within the arena. The script can be run in **calibration mode** to fine-tune zone creation, particularly useful for first-time setups.
 
+Example data files can be found on [Google Drive](https://drive.google.com/drive/folders/1pjuHoSbZbApui3a1_4NhBAjQv24lvuGl?usp=drive_link).
+
 ## Features
 
 - **Distance Calculation**: Computes the total distance traveled by the subject within the arena.
