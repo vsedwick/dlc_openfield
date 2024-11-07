@@ -1,5 +1,5 @@
 rootdir: "E:/Exc Dreadds_2022/dreadds/OF/SAL/Virgin Female"
-example_behavior_file_h5: "E:/Exc Dreadds_2022/dreadds/OF/CNO/Males/VM14_2023-03-27-222442-0000DLC_resnet50_NOR_OpenfieldJan25shuffle1_50000_filtered.h5"
+example_DLC_file_h5: "E:/Exc Dreadds_2022/dreadds/OF/CNO/Males/VM14_2023-03-27-222442-0000DLC_resnet50_NOR_OpenfieldJan25shuffle1_50000_filtered.h5"
 project_name: Saline1_female
 #How are you scoring? single: only scores and analyzes the example_behav_file; batch/multipl: analyzes an entire folder
 scoretype: batch
@@ -26,4 +26,6 @@ Arena_parameters:
   - Neck
   - Neck
   bodyparts_to_analyze:
+  - nose
   - Neck
+  - tail_base

@@ -134,7 +134,6 @@ class VideoAnalysis:
     def __init__(self, config):
 
         self.config_params = self.ConfigHandler(config)
-
         self.trackBP = self.config_params.trackBP
         self.config = config
         self.Videos = []; self.Distance=[]; self.Velocity=[]; self.Time_in_Center=[]
@@ -188,7 +187,7 @@ class VideoAnalysis:
             start, end = arena_params.crop_video()
             self.config_params.dataframe = self.config_params.dataframe[start:end]
         
-        for bp in self.config_params.trackBP:
+        for bp in self.trackBP:
             x, y = self.config_params.dataframe[bp]['x'].values, self.config_params.dataframe[bp]['y'].values
 
             get_metrics = self.Metrics(self.config_params, arena_params, [x, y], bp)
@@ -270,7 +269,7 @@ class VideoAnalysis:
 
             self.save_images = config["Arena_parameters"]["save_tracklets"]
             
-            self.examp_file = config["example_behavior_file_h5"]
+            self.examp_file = config["example_DLC_file_h5"]
 
             self.file = None
 
@@ -281,7 +280,7 @@ class VideoAnalysis:
             self.real_sizecm = self._val_real_size(config["Video Parameters"]["real_sizecm"])
             self.fps = self._val_fps(config["Video Parameters"]["fps"])
             
-            self.mcf = config["Arena_parameters"]["movement_correction_factor"]
+            self.mcf = self._val_mcf(config["Arena_parameters"]["movement_correction_factor"])
             self.center_scale = self.val_center(config["Arena_parameters"]["scale_for_center_zone"])
             
             self.trackBP = []
@@ -402,6 +401,20 @@ class VideoAnalysis:
                         print("Invalid input. Please enter a number between 0 and 1.")
             return likelihood
         
+        def _val_mcf(self, mcf):
+            if not mcf:
+                while True:
+                    try:
+                        new_mcf = float(input('What is the movement correction factor e.g. Recommended default is 0.58. (Input number <1.): '))
+                        if 0 < new_mcf < 1:
+                            self.mcf = new_mcf
+                            return self.mcf
+                        else:
+                            print("Likelihood must be a number between 0 and 1.")
+                    except ValueError:
+                        print("Invalid input. Please enter a number between 0 and 1.")
+            return mcf
+        
         def start_bp(self):
             print(self.labels)
             k = 0
@@ -453,12 +466,12 @@ class VideoAnalysis:
         
         def _val_h5(self, file):
             if not file.endswith('.h5'):
-                raise ValueError("Please re-load 'example_behavior_file_h5' file with a '.h5' extension")
+                raise ValueError("Please re-load 'example_DLC_file_h5' file with a '.h5' extension")
             else:
                 return file
 
         def clear_variables(self):
-            self.length_s = self.real_sizecm = self.likelihood = self.startBP = self.center_scale = self.trackBP = None
+            self.length_s = self.real_sizecm = self.likelihood = self.startBP = self.center_scale = self.trackBP = self.mcf = None
 
 
     
@@ -595,13 +608,16 @@ class VideoAnalysis:
             
             plt.figure("Arena")
             plt.plot(arenax, arenay, 'k')
-            plt.fill(arenax, arenay, 'red', alpha=0.4, label='Arena')
+            plt.fill(arenax, arenay)
+
             plt.plot(centerx, centery, 'k')
-            plt.fill(centerx, centery, 'y', alpha=0.3, label='Center')
-            plt.plot(wallx, wally, 'k')
-            plt.fill(wallx, wally, 'lime', alpha=0.3, label='Wall')
+            plt.fill(centerx, centery, 'palegreen', alpha=1, label='Center')
+
             plt.plot(borderx, bordery, 'k')
-            plt.fill(borderx, bordery, 'b', alpha=0.3, label='Borders')
+            plt.fill(borderx, bordery, 'moccasin', alpha=1, label='Borders')
+
+            plt.plot(wallx, wally, 'k')
+            plt.fill(wallx, wally, 'steelblue', alpha=1, label='Wall')
             plt.axis('equal')
             plt.legend(loc='lower left')
             plt.show(block=False)
@@ -700,6 +716,9 @@ class VideoAnalysis:
 
 
             return dist_vel, motion, time_zone, entries
+        
+# def clear_all(analyzer):
+#     analyzer.Distance = analyzer.Vi
 
 def main(config_file):
 
