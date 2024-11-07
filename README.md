@@ -1,9 +1,33 @@
 
 # Open Field DLC Post-Processing Script
 
-This script post-processes open-field videos labeled with DeepLabCut. It calculates metrics like distance traveled, time spent in specific zones, and generates tracklet visualizations within the arena. The script can be run in **calibration mode** to fine-tune zone creation, particularly useful for first-time setups.
+This script post-processes open-field videos labeled with DeepLabCut using a custom OpenField template. It calculates metrics like distance traveled, time spent in specific zones, and generates tracklet visualizations within the arena. The script can be run in **calibration mode** to fine-tune zone creation, particularly useful for first-time setups.
 
 Example data files can be found on [Google Drive](https://drive.google.com/drive/folders/1pjuHoSbZbApui3a1_4NhBAjQv24lvuGl?usp=drive_link).
+
+## Table of Contents
+1. [Experiment Description](#experiment-description)
+2. [Features](#features)
+3. [Requirements](#requirements)
+4. [Setup](#setup)
+5. [Configuration File (`config.yaml`)](#configuration-file-configyaml)
+   - [Calibration Mode](#calibration-mode)
+6. [Usage](#usage)
+7. [Example Output](#example-output)
+8. [Troubleshooting](#troubleshooting)
+
+---
+
+## Experiment Description
+
+The **open field test** is a behavioral experiment used to assess exploration, anxiety, and locomotion in rodents. In an open arena, researchers track:
+
+- **Exploration**: Time spent in various zones (center vs. border).
+- **Anxiety**: Avoidance of the center suggests higher anxiety.
+- **Locomotion**: Measures like distance and speed provide insight into activity levels.
+
+This test helps evaluate effects of neurological and pharmacological interventions on behavior.
+
 
 ## Features
 
