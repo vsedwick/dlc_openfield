@@ -124,6 +124,9 @@ Arena_parameters:
   plikelihood: 0.85  # Adjust threshold to reduce tracking errors
   movement_correction_factor: 0.6  # Increase smoothing for noisy tracklets
 ```
+### Quality Control
+
+The script will detect significant deviations in the tracklets in "Metrics.cleanup" and interpolate missing values using "Metrics.fill_in".
 
 ## Usage
 
